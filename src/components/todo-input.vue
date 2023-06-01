@@ -9,16 +9,17 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { ref, defineEmits } from "vue";
+import { ref } from "vue";
+import { useStoreTodo } from "@/store/modules/todo";
 
+const store = useStoreTodo();
 const inputValue = ref("");
-const emit = defineEmits(["update:todo"]);
 
 const handelAddItem = (event: Event) => {
     const value = (event.target as HTMLInputElement).value;
     if (!value) return;
     inputValue.value = value;
-    emit("update:todo", {
+    store.addTodoItem({
         id: 1,
         title: value,
         status: "active",

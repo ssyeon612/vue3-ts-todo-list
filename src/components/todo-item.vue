@@ -1,7 +1,7 @@
 <template>
     <div class="input-group">
         <div class="input-group-text">
-            <input class="form-check-input mt-0" type="checkbox" :checked="props.status === 'clear'" />
+            <input class="form-check-input mt-0" type="checkbox" :checked="props.status === 'clear'" @change="handleChangeStatus" />
         </div>
         <input type="text" class="form-control" :value="props.title" disabled />
         <button type="button" class="btn btn-outline-danger" @click="handleRemoveItem">X</button>
@@ -14,19 +14,29 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { defineProps, defineEmits } from "vue";
+import { defineProps } from "vue";
+import { useStoreTodo } from "@/store/modules/todo";
+import { TodoItem } from "@/store/index.interface";
 
-interface TodoItem {
-    id: number;
-    title: string;
-    status: "active" | "clear";
+interface Props {
+    id: TodoItem["id"];
+    title: TodoItem["title"];
+    status: TodoItem["status"];
 }
 
-const props = defineProps<TodoItem>();
-const emit = defineEmits(["remove:todo"]);
+const store = useStoreTodo();
+const props = defineProps<Props>();
+
+const handleChangeStatus = () => {
+    const changeStatus = props.status === "active" ? "clear" : "active";
+    store.changedStatus({
+        id: props.id,
+        status: changeStatus,
+    });
+};
 
 const handleRemoveItem = () => {
-    emit("remove:todo", props.id);
+    store.removeTodoItem(props.id);
 };
 </script>
 
