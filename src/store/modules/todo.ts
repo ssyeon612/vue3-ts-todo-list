@@ -1,25 +1,10 @@
 import { defineStore } from 'pinia'
+import { useStorage } from "@vueuse/core";
 import { TodoItem } from '../index.interface'
 
 export const useStoreTodo = defineStore('todo', {
   state: () => ({
-    todoList: ([
-      {
-          id: 0,
-          title: "study",
-          status: "clear",
-      },
-      {
-          id: 1,
-          title: "clean room",
-          status: "active",
-      },
-      {
-          id: 2,
-          title: "work out",
-          status: "clear",
-      },
-  ] as TodoItem[])
+    todoList: useStorage('todoList',[] as TodoItem[])
   }),
   getters: {},
   actions: {

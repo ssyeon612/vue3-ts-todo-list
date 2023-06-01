@@ -19,8 +19,11 @@ const handelAddItem = (event: Event) => {
     const value = (event.target as HTMLInputElement).value;
     if (!value) return;
     inputValue.value = value;
+    const length = store.todoList.length;
+    const createdId = length === 0 ? 0 : store.todoList.length[length - 1].id + 1;
+    inputValue.value = value;
     store.addTodoItem({
-        id: 1,
+        id: createdId,
         title: value,
         status: "active",
     });
