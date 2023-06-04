@@ -8,12 +8,28 @@ export default {
 };
 </script>
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, watch } from "vue";
+import { useRoute } from "vue-router";
 import { useStoreTodo } from "@/store/modules/todo";
 import TodoItem from "@/components/todo-item.vue";
 
+const route = useRoute();
 const store = useStoreTodo();
 const renderTodoList = ref(store.todoList);
+
+watch(
+    () => route.params.status,
+    (val) => {
+        if (!val) {
+            renderTodoList.value = store.todoList;
+        } else if (val === "active" || val === "clear") {
+            renderTodoList.value = [...store.todoList].filter((item: any) => {
+                return item.status === val;
+            });
+        }
+    },
+    { deep: true }
+);
 </script>
 
 <style scoped></style>

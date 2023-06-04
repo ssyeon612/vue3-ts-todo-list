@@ -12,12 +12,16 @@ export const useStoreTodo = defineStore('todo', {
       this.todoList.push(item)
     },
     removeTodoItem(id: number) {
-      this.todoList.splice(id, 1);
+     this.todoList = this.todoList.filter(item => item.id !== id);
     },
     changedStatus({
       id, status
     }: { id: TodoItem['id'], status: TodoItem['status'] }) {
-      this.todoList[id].status = status
+      this.todoList.forEach((item: TodoItem) => {
+        if (item.id === id) {
+          item.status = status
+        }
+      })
     } 
   }
 })

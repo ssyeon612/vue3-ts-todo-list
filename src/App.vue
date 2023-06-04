@@ -3,16 +3,14 @@
         <div class="row">
             <the-header />
         </div>
-        <div class="row"><todo-input @update:todo="handleUpdateTodoList" /></div>
+        <div class="row"><todo-input /></div>
         <div class="row">
-            <router-view :todo-list="todoList" @remove:todo="handleRemoveTodoItem" />
+            <router-view />
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-
 import TheHeader from "@/components/the-header.vue";
 import TodoInput from "@/components/todo-input.vue";
 </script>
