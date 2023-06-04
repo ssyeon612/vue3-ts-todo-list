@@ -4,11 +4,12 @@
 
 <script lang="ts">
 export default {
-    name: "todo-list",
+    name: "item-list",
 };
 </script>
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref, watch } from "vue";
+import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
 import { useStoreTodo } from "@/store/modules/todo";
 import TodoItem from "@/components/todo-item.vue";
@@ -17,6 +18,7 @@ const route = useRoute();
 const store = useStoreTodo();
 const renderTodoList = ref(store.todoList);
 
+console.log("storeToRefs", storeToRefs);
 watch(
     () => route.params.status,
     (val) => {

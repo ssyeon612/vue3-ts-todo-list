@@ -4,12 +4,12 @@ import { TodoItem } from '../index.interface'
 
 export const useStoreTodo = defineStore('todo', {
   state: () => ({
-    todoList: useStorage('todoList',[] as TodoItem[])
+    todoList: useStorage('todoList', [] as TodoItem[])
   }),
   getters: {},
   actions: {
     addTodoItem(item: TodoItem) {
-      this.todoList.push(item)
+      this.todoList.push(item);
     },
     removeTodoItem(id: number) {
      this.todoList = this.todoList.filter(item => item.id !== id);
